@@ -1,0 +1,5 @@
+func1    20  10  data/func1.txt  0
+func2    20  10  data/func2.txt  0
+func3    20  10  data/func3.txt  0
+func4    20  10  data/func4.txt  0
+func5    20  10  data/func5.txt  1
