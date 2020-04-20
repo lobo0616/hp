@@ -87,7 +87,7 @@ def evaluate_one_py(file_path, py_name, all_func_info, stu_name, gold_funcs, ver
                         md5_before = hashlib.md5((open(one_input_line[0]).read()).encode("utf-8")).hexdigest()
                         try:
                             with MyTimer(max(time_gap_sec * time_ratio, min_time_for_run_one_func)):
-                                result = this_funcs[func_name](*one_input_line) #将测试用例放到学生函数里执行？
+                                result = this_func[func_name](*one_input_line) #将测试用例放到学生函数里执行？
                                 result = get_all_lines(one_input_line[-1])
                         except Exception as e:  #发生异常执行这一块
                             print_msg_verbose_2(py_name, func_name, i_input, '%s : %s' % (type(e).__name__, e), verbose)
@@ -112,6 +112,8 @@ def evaluate_one_py(file_path, py_name, all_func_info, stu_name, gold_funcs, ver
                 print_func_score_verbose_1(py_name, stu_name, func_name, score, correct_case_cnt, all_case_cnt, verbose)
             else:
                 continue
+        #清空文件
+        #empty_file_info("splitResult/" + one_prob +".py")
     print_score_summary(py_name,stu_name, stu_total_score, func_names, func_scores)
 
 if __name__ == '__main__':
@@ -136,4 +138,5 @@ if __name__ == '__main__':
             stu_name = get_name_info(one_py,args.student) #获取相应学号的学生姓名
             print("姓名：", stu_name)
             file_path = args.prog_dir + "/" + one_py + ".py" #获取学生文件的相对路径
+            print("开始评分：",file_path)
             evaluate_one_py(file_path, one_py, all_func_info, stu_name, gold_funcs, args.verbose) 

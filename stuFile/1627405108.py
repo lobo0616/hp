@@ -8,7 +8,7 @@ def func1(a,b):
         a=b
         b=t
     p=1
-    for i in range(a,b+1)
+    for i in range(a,b+1):
         p = p * i
     s=0
     while p%10==0:
@@ -54,19 +54,15 @@ def res(a):
     return a
 
 def func5(inputName,outputName):
-    data=[]
-    fp1=open(inputName,"r")
-    line=fp1.readline()
-    while line:
-        data.append(int(line))
-        line=fp1.readline()
-    fp1.close()
-    
+    fp=open(inputName,"r")
+    lines=fp.readlines()
+    fp.close()
+    data=[int(item[:-1]) for item in lines]
     data.sort(reverse=True)
-    fp2=open(outputName,"w")
+    fp=open(outputName,"w")
     for item in data:
-        fp2.write(str(item)+"\n")
-    fp2.close()
+        fp.write(str(item)+"\n")
+    fp.close()
 
 if __name__=="__main__":
     func2(121,121)
