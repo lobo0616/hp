@@ -25,8 +25,16 @@ def evaluate_one_py(file_path, py_name, all_func_info, stu_name, gold_funcs, ver
     func_scores = [] #学生每个函数得分列表
     stu_total_score = 0. #学生总得分
     func_names = []
+    count=0
+    print('+++++++++++++')
+    print(len(prob_list))
     for one_prob in prob_list: #一个函数
+        count=count+1
+        # print('+++++++++++++')
+        print(count)
         correct_case_cnt = 0.  #正确的测试用例个数
+        #this_func[one_prob] = ""
+        #this_func.setdefault(one_prob,{}) =""
         try:
             with MyTimer(max_time_for_import_one_py): 
                 this_func = get_funcs_in_one_module(one_prob, verbose) #将一个函数提取出来
@@ -34,7 +42,9 @@ def evaluate_one_py(file_path, py_name, all_func_info, stu_name, gold_funcs, ver
             print_a_thing_verbose_1('import module %s timeout: %s %s' % (one_prob, type(e).__name__, e), verbose)
         
         #prob_score = 0. 
-       
+        print("函数名：", one_prob)
+        print('-------------------------------')
+        print("提取的函数名：",this_func)
         for (func_name, score, time_ratio, test_case_file_name ,isFile) in all_func_info: #批阅的函数名 分数  时间 测试用例文件
             if func_name == one_prob: 
                 func_names.append(func_name)
@@ -113,7 +123,7 @@ def evaluate_one_py(file_path, py_name, all_func_info, stu_name, gold_funcs, ver
             else:
                 continue
         #清空文件
-        #empty_file_info("splitResult/" + one_prob +".py")
+        empty_file_info("splitResult/" + one_prob +".py")
     print_score_summary(py_name,stu_name, stu_total_score, func_names, func_scores)
 
 if __name__ == '__main__':
@@ -137,6 +147,6 @@ if __name__ == '__main__':
             print("学号：", one_py)
             stu_name = get_name_info(one_py,args.student) #获取相应学号的学生姓名
             print("姓名：", stu_name)
-            file_path = args.prog_dir + "/" + one_py + ".py" #获取学生文件的相对路径
+            file_path = args.prog_dir + one_py + ".py" #获取学生文件的相对路径
             print("开始评分：",file_path)
             evaluate_one_py(file_path, one_py, all_func_info, stu_name, gold_funcs, args.verbose) 
